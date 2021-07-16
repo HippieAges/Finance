@@ -2,6 +2,7 @@
     color:#ecf0f1;
     font-family: 'Ubuntu', sans-serif;
     --arrow-padding: 4%;
+    --main-color: #1abc9c;
 }
 
 body {
@@ -14,7 +15,7 @@ body {
     justify-content: space-around;
     align-items: flex-end;
     flex-direction: row;
-    margin-top: 6%;
+    margin-top: 4%;
 }
 
 .display {
@@ -29,7 +30,7 @@ body {
     display: inherit;
     flex-direction: row;
     justify-content: space-between;
-    background-color: #1abc9c;
+    background-color: var(--main-color);
     align-items: center;
     height: 10vh;
     font-size: large;
