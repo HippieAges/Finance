@@ -6,5 +6,6 @@ const months = [
 const currentDate = new Date();
 const month = months[currentDate.getMonth()];
 const year = currentDate.getFullYear();
+const day = currentDate.getDay();
 
-document.getElementById("date").innerText = `${month} ${year}`
+document.getElementById("current-date").innerText = `${month} ${day} ${year}`
