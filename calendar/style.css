@@ -1,0 +1,11 @@
+#days {
+    display: inherit;
+    justify-content: space-around;
+    align-items: flex-end;
+    flex-direction: row;
+}
+
+.display {
+    display: flex;
+    flex-direction: column;
+}
