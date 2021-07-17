@@ -1,45 +1,114 @@
-:root {
-    color:#ecf0f1;
-    font-family: 'Ubuntu', sans-serif;
-    --arrow-padding: 4%;
-    --main-color: #1abc9c;
-}
-
-body {
+*, *:before, *:after {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-#days {
-    display: inherit;
-    justify-content: space-around;
-    align-items: flex-end;
-    flex-direction: row;
-    margin-top: 4%;
+:root {
+    color:hsl(192, 15%, 94%);
+    font-family: 'Ubuntu', sans-serif;
+    --spacing: 4%;
+    --main-color: hsl(168, 76%, 42%);
 }
 
-.display {
-    display: flex;
+.container {
+    /* display: flex; */
     width: 100%;
     height: 100vh;
-    flex-direction: column;
-    background-color: #2c3e50;
+    /* flex-direction: column; */
+    background-color: hsl(210, 29%, 24%);
 }
 
-#date {
-    display: inherit;
+#month {
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
     background-color: var(--main-color);
     align-items: center;
-    height: 10vh;
-    font-size: large;
+    height: 20vh;
+    font-size: large; /* change font size depending on window size */
+}
+
+#days {
+    display: grid;
+    grid-template-columns: repeat(7, calc(100vw / 7));
+    grid-template-rows: repeat(6, calc(80vh / 6));
+    align-content: space-between;
+}
+
+#weekdays {
+    display: inherit;
+    grid-row: 1;
+    grid-column: 1 / 7;
+    /* align-items: center;
+    justify-items: center; */
+    /* margin-top: var(--spacing); */
+}
+
+#weekdays div {
+    display: inherit;
+    align-self: center;
+    justify-self: center;
+}
+
+#weekdays div:nth-child(1) {
+    display: inherit;
+    grid-column: 1;
+}
+
+#weekdays div:nth-child(2) {
+    display: inherit;
+    grid-column: 2;
+}
+
+#weekdays div:nth-child(3) {
+    display: inherit;
+    grid-column: 3;
+}
+
+#weekdays div:nth-child(4) {
+    display: inherit;
+    grid-column: 4;
+}
+
+#weekdays div:nth-child(5) {
+    display: inherit;
+    grid-column: 5;
+}
+
+#weekdays div:nth-child(6) {
+    display: inherit;
+    grid-column: 6;
+}
+
+#weekdays div:nth-child(7) {
+    display: inherit;
+    grid-column: 7;
 }
 
 #left-arrow {
-    padding-left: var(--arrow-padding);
+    padding-left: var(--spacing);
 }
 
 #right-arrow {
-    padding-right: var(--arrow-padding);
+    padding-right: var(--spacing);
+}
+
+#prior-days {
+    display: grid;
+    grid-row: 2;
+    grid-column: 1 / 7; 
+}
+
+#prior-days div:nth-child(1) {
+    display: inherit;
+    grid-column: 1;
+}
+
+#prior-days, #next-days {
+    color:hsl(192, 16%, 60%);
+}
+
+#today {
+    background-color: hsl(210, 29%, 50%);
 }
