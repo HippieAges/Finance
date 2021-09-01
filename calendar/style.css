@@ -9,13 +9,12 @@
     font-family: 'Ubuntu', sans-serif;
     --spacing: 4%;
     --main-color: hsl(168, 76%, 42%);
+    --border-color: hsl(210, 29%, 60%);
 }
 
 .container {
-    /* display: flex; */
     width: 100%;
     height: 100vh;
-    /* flex-direction: column; */
     background-color: hsl(210, 29%, 24%);
 }
 
@@ -26,72 +25,16 @@
     background-color: var(--main-color);
     align-items: center;
     height: 20vh;
-    font-size: large; /* change font size depending on window size */
+    font-size: xx-large; /* change font size depending on window size */
 }
 
 #days {
     display: grid;
     grid-template-columns: repeat(7, calc(100vw / 7));
     grid-template-rows: repeat(7, calc(80vh / 7));
-    /* align-items: center;
-    justify-items: center; */
+    text-align: center;
+    font-size: medium;
 }
-
-/* #weekdays {
-    display: inherit;
-    grid-row: 1 / 2;
-    grid-column: 1 / 8;
-    align-items: center;
-    justify-items: center;
-    margin-top: var(--spacing);
-}
-
-#weekdays div {
-    display: inherit;
-    /* align-self: center;
-    justify-self: center;
-}
-
-#weekdays div:nth-child(1) {
-    display: inherit;
-    grid-column: 1;
-}
-
-#weekdays div:nth-child(2) {
-    display: inherit;
-    grid-column: 2;
-}
-
-#weekdays div:nth-child(3) {
-    display: inherit;
-    grid-column: 3;
-}
-
-#weekdays div:nth-child(4) {
-    display: inherit;
-    grid-column: 4;
-}
-
-#weekdays div:nth-child(5) {
-    display: inherit;
-    grid-column: 5;
-}
-
-#weekdays div:nth-child(6) {
-    display: inherit;
-    grid-column: 6;
-}
-
-#weekdays div:nth-child(7) {
-    display: inherit;
-    grid-column: 7;
-}
-
-#day {
-    display: inherit;
-    grid-row: 2 / 8;
-    grid-column: 1 / 8;
-} */
 
 #left-arrow {
     padding-left: var(--spacing);
@@ -101,21 +44,17 @@
     padding-right: var(--spacing);
 }
 
-/* #prior-days {
-    display: grid;
-    grid-row: 2;
-    grid-column: 1 / 8; 
-} */
-
-/* #prior-days div:nth-child(1) {
-    display: inherit;
-    grid-column: 1;
-} */
-
 #prior-days, #next-days {
     color:hsl(192, 16%, 60%);
 }
 
 #today {
     background-color: hsl(210, 29%, 50%);
+    border: 0.2rem solid var(--border-color);
+}
+
+#days div:hover:not(#weekday):not(#today) {
+    cursor: pointer;
+    background-color: hsl(210, 29%, 40%);
+    border: 0.2rem solid var(--border-color);
 }

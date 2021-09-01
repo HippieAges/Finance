@@ -24,24 +24,16 @@ let column = 1;
 
 // applies to displaying the days of the month //
 for(let index = 0; index < days.length; index++) {
-    if(index == 0) {
-        date += `<div id="row" style="display:inherit; grid-row:${row}; grid-column: 1 / 8;">`;
-    }
-    date += `<div style="display:inherit; grid-column: ${column};
+    date += `<div id="weekday" style="display:inherit; grid-column: ${column};
               place-items: center;">${days[index]}</div>`;
     column++;
 }
-date += `</div>`;
 row++;
 column = 1;
 
 // applies to the days in the previous month //
 while (displayedDays.getMonth() !== currentDateMonth) {
-    if(count === 0) {
-        date += `<div id="row" style="display:inherit; grid-row:${row}; grid-column: 1 / 8;">`;
-    } else if(count % 7 === 0) {
-        date += `</div><div id="row">`;
-    }
+   
     date += `<div id="prior-days" style="display:inherit; grid-column: ${column};
               place-items: center;">${displayedDays.getDate()}</div>`; 
     displayedDays.setDate(displayedDays.getDate() + 1);
@@ -56,9 +48,6 @@ for(;displayedDays.getMonth() === currentDateMonth; count++) {
         row++;
     }
     
-    if(count % 7 === 0) {
-        date += `</div><div id="row" style="display:inherit; grid-row:${row}; grid-column: 1 / 8;">`;
-    }
     if (displayedDays.getDate() === day) {
         date += `<div id="today" style="display:inherit; grid-column: ${column};
                   place-items: center;">${displayedDays.getDate()}</div>`;
@@ -77,11 +66,6 @@ for(;count < rows * days.length; count++) {
         row++;
     }
 
-    if(count == rows * days.length) {
-        date += `</div>`;
-    } else if(count % 7 === 0) {
-        date += `</div><div id="row" style="display:inherit; grid-row:${row}; grid-column: 1 / 8;">`;
-    }
     date += `<div id="next-days" style="display:inherit; grid-column: ${column};
               place-items: center;">${displayedDays.getDate()}</div>`;
     displayedDays.setDate(displayedDays.getDate() + 1);
