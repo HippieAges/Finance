@@ -2,23 +2,29 @@ const months = [
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
 ];
-const rows = 6
 
+const rows = 6
 const days = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
 const currentDate = new Date();
-let currentDateMonth = currentDate.getMonth();
-let currentYear = currentDate.getFullYear();
-let currentDay = currentDate.getDate();
+let [currentMonth, currentYear, currentDay] = [currentDate.getMonth(), currentDate.getFullYear(), currentDate.getDate()];
+
+function includeDivs(divInfo, date, displayedDays) {
+    date += `<div id="${divInfo['id']}" style="display:inherit; grid-column: ${divInfo['column']};
+                place-items: center;">${divInfo['date']}</div>`;
+    if(divInfo['setDate']) {
+        displayedDays.setDate(displayedDays.getDate() + 1);
+    } 
+    return date;
+}
 
 function renderCalendar() {
-    currentDay = currentDate.getMonth() === currentDateMonth && currentDate.getFullYear() === currentYear ? currentDate.getDate() : -1;
-    const [month, year, day] = [months[currentDateMonth], currentYear, currentDay];
-    console.log(currentDateMonth, currentDate.getMonth(),  year, currentDate.getFullYear(), day);
+    // current day will be -1 if we're not in the current month //
+    currentDay = currentDate.getMonth() === currentMonth && currentDate.getFullYear() === currentYear ? currentDate.getDate() : -1;
+    const [month, year] = [months[currentMonth], currentYear];
     document.getElementById("date").innerText = `${month} ${year}`
 
-    let displayedDays = new Date(year, currentDateMonth);
-    displayedDays = displayedDays.getDay() === 1 ? displayedDays : new Date(year, currentDateMonth, displayedDays.getDate() - (7 - displayedDays.getDay()));
-
+    let displayedDays = new Date(year, currentMonth, 1);
+    displayedDays.setDate(-1 * displayedDays.getDay() + 2); // + 2 is performed here since getDay() is 0-indexed and we begin on Sunday, not Monday
     let date = "";
     let count = 0;
     let row = 1;
@@ -26,38 +32,30 @@ function renderCalendar() {
 
     // applies to displaying the days of the month //
     for(let index = 0; index < days.length; index++) {
-        date += `<div id="weekday" style="display:inherit; grid-column: ${column};
-                place-items: center;">${days[index]}</div>`;
+        date = includeDivs({"id": "weekday", "column": column, "date": days[index], "setDate": false}, date, displayedDays);
         column++;
     }
     row++;
     column = 1;
 
     // applies to the days in the previous month //
-    while (displayedDays.getMonth() !== currentDateMonth) {
-    
-        date += `<div id="prior-days" style="display:inherit; grid-column: ${column};
-                place-items: center;">${displayedDays.getDate()}</div>`; 
-        displayedDays.setDate(displayedDays.getDate() + 1);
+    while (displayedDays.getMonth() !== currentMonth) {
+        date = includeDivs({"id": "prior-days", "column": column, "date": displayedDays.getDate(), "setDate": true}, date, displayedDays);
         count++;
         column++;
     }
 
     // applies to the days in the current month //
-    for(;displayedDays.getMonth() === currentDateMonth; count++) {
+    for(;displayedDays.getMonth() === currentMonth; count++) {
         if(column == 8) {
             column = 1;
             row++;
         }
-        
-        if (displayedDays.getDate() === day) {
-            date += `<div id="today" style="display:inherit; grid-column: ${column};
-                    place-items: center;">${displayedDays.getDate()}</div>`;
-        } else {
-            date += `<div style="display:inherit; grid-column: ${column};
-                    place-items: center;">${displayedDays.getDate()}</div>`;
+        map = {"id": "", "column": column, "date": displayedDays.getDate(), "setDate": true}
+        if (currentDay === displayedDays.getDate()) {
+            map["id"] = "today";
         }
-        displayedDays.setDate(displayedDays.getDate() + 1);
+        date = includeDivs(map, date, displayedDays);
         column++;
     }
 
@@ -68,29 +66,27 @@ function renderCalendar() {
             row++;
         }
 
-        date += `<div id="next-days" style="display:inherit; grid-column: ${column};
-                place-items: center;">${displayedDays.getDate()}</div>`;
-        displayedDays.setDate(displayedDays.getDate() + 1);
+        date = includeDivs({"id": "next-days", "column": column, "date": displayedDays.getDate(), "setDate": true}, date, displayedDays)
         document.querySelector('#days').innerHTML = date;
         column++;
     }
 }
 
 document.getElementById("left-arrow").addEventListener("click", function() {
-    if(currentDateMonth === 0) {
-        currentDateMonth = 11;
+    if(currentMonth === 0) {
+        currentMonth = 11;
         currentYear--;
     } else {
-        currentDateMonth--;
+        currentMonth--;
     }
     renderCalendar();
 });
 document.getElementById("right-arrow").addEventListener("click", function() {
-    if(currentDateMonth === 11) {
-        currentDateMonth = 0;
+    if(currentMonth === 11) {
+        currentMonth = 0;
         currentYear++;
     } else {
-        currentDateMonth++;
+        currentMonth++;
     }
     renderCalendar();
 });
