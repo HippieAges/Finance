@@ -44,6 +44,10 @@
     padding-right: var(--spacing);
 }
 
+#left-arrow:hover, #right-arrow:hover {
+    cursor: pointer;
+}
+
 #prior-days, #next-days {
     color:hsl(192, 16%, 60%);
 }
@@ -53,8 +57,11 @@
     border: 0.2rem solid var(--border-color);
 }
 
-#days div:hover:not(#weekday):not(#today) {
+#days div:hover:not(#weekday) {
     cursor: pointer;
+}
+
+#days div:hover:not(#weekday):not(#today) {
     background-color: hsl(210, 29%, 40%);
     border: 0.2rem solid var(--border-color);
 }
