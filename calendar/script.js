@@ -17,11 +17,30 @@ function includeDivs(divInfo, date, displayedDays) {
     return date;
 }
 
+function setDisplay() {
+    if(document.getElementById("year-content").style.display === "flex") {
+        document.getElementById("year-content").style.display = "none";
+    } else {
+        document.getElementById("year-content").style.display = "flex";
+    } 
+}
+
+function windowOnClick(event) {
+    const yearContent = document.getElementById("year-content");
+    const date = document.getElementById("date");
+    if(yearContent.style.display === "flex" && event.target !== date && event.target !== yearContent) {
+        yearContent.style.display = "none";
+    }
+}
+
 function renderCalendar() {
     // current day will be -1 if we're not in the current month //
     currentDay = currentDate.getMonth() === currentMonth && currentDate.getFullYear() === currentYear ? currentDate.getDate() : -1;
     const [month, year] = [months[currentMonth], currentYear];
     document.getElementById("date").innerText = `${month} ${year}`
+
+    document.getElementById("date").addEventListener("click", setDisplay);
+    document.querySelector(".container").addEventListener("click", windowOnClick);
 
     let displayedDays = new Date(year, currentMonth, 1);
     displayedDays.setDate(-1 * displayedDays.getDay() + 2); // + 2 is performed here since getDay() is 0-indexed and we begin on Sunday, not Monday
@@ -72,7 +91,7 @@ function renderCalendar() {
     }
 }
 
-document.getElementById("left-arrow").addEventListener("click", function() {
+document.getElementById("left-arrow-outer").addEventListener("click", function() {
     if(currentMonth === 0) {
         currentMonth = 11;
         currentYear--;
@@ -81,7 +100,7 @@ document.getElementById("left-arrow").addEventListener("click", function() {
     }
     renderCalendar();
 });
-document.getElementById("right-arrow").addEventListener("click", function() {
+document.getElementById("right-arrow-outer").addEventListener("click", function() {
     if(currentMonth === 11) {
         currentMonth = 0;
         currentYear++;

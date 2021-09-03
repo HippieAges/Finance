@@ -12,8 +12,12 @@
     --border-color: hsl(210, 29%, 60%);
 }
 
+#date:hover {
+    cursor: pointer;
+}
+
 .container {
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     background-color: hsl(210, 29%, 24%);
 }
@@ -36,16 +40,42 @@
     font-size: medium;
 }
 
-#left-arrow {
+#left-arrow-inner, #left-arrow-outer {
     padding-left: var(--spacing);
 }
 
-#right-arrow {
+#right-arrow-inner, #right-arrow-outer {
     padding-right: var(--spacing);
 }
 
-#left-arrow:hover, #right-arrow:hover {
+#left-arrow-inner:hover, #left-arrow-outer:hover, #right-arrow-inner:hover, #right-arrow-outer:hover {
     cursor: pointer;
+}
+
+#year-content {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 0.5rem;
+    background-color: var(--main-color);
+    width: 40vw;
+    height: 60vh;
+    margin-top: var(--spacing);
+}
+
+.top-year-content {
+    display: inherit;
+    position: inherit;
+    width: 40vw;
+    height: 10vh;
+    font-size: 32px;
+    text-align: center;
+    padding-top: 1%;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
 }
 
 #prior-days, #next-days {
